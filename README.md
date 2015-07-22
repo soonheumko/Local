@@ -95,11 +95,7 @@ The reading performance can be improved by changing a program or by turning on t
 
 Beware that we now allocate dummy arrays of ***tmp1(:)*** and ***tmp2(:)*** to store unnecessary dataset from the data file, instead of keep overwriting one ***tmp*** variable.
 
-To revisit a way of turning on buffered I/O,
-
-<p><strong>OPEN(unit,file=name,BUFFERED='YES')</strong></p> or <p><strong>-assume buffered_io</strong></p> or <p><strong>export FORT_BUFFERED=true</strong></p>
-
-will make use of disk block I/O buffer.
+To revisit a way of turning on buffered I/O, `OPEN(unit,file=name,BUFFERED='YES')` or `-assume buffered_io` or `export FORT_BUFFERED=true` will let you use disk block I/O buffer.
 
 At least we clearly observe the above slowdown when **more than 100 CPU cores access a single datafile of bigger than 100 Megabytes** to read a part of the data file. If your case applies to this range, we highly recommend you to **turn on buffered I/O feature and rerun the same simulation** to see the performance change.
 
