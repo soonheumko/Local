@@ -97,9 +97,7 @@ Beware that we now allocate dummy arrays of ***tmp1(:)*** and ***tmp2(:)*** to s
 
 To revisit a way of turning on buffered I/O,
 
-<p>
-<strong>OPEN(unit,file=name,BUFFERED='YES')</strong> or <strong>-assume buffered_io</strong> or <strong>export FORT_BUFFERED=true</strong>
-</p>
+<p><strong>OPEN(unit,file=name,BUFFERED='YES')</strong></p> or <p><strong>-assume buffered_io</strong></p> or <p><strong>export FORT_BUFFERED=true</strong></p>
 
 will make use of disk block I/O buffer.
 
