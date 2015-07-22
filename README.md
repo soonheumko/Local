@@ -9,9 +9,7 @@ published: true
 
 Many users report the bad I/O performance especially when they treat much larger problem size than before. Sometimes some users doubt the performance of GPFS file system which builds our centre storage system. However, in most cases, the poor I/O performance inherits from the bad programming in your code. General guidance in this article We address the general guidance in this article, hoping that it contributes to improving the I/O performance of your Fortran code.
 
-We intend to provide an advice to users who use Intel Fortran compiler. Thus, some tips (**~~[Section 3](#sec3) and Section 4~~**) may not apply to the GNU compiler users. Also, this article covers the general tips for the sequential I/O operation (not MPI-I/O). Finally, we would remark that many of the contents are referenced by an online article [here](http://kiwi.atmos.colostate.edu/rr/tidbits/intel/macintel/doc_files/source/extfile/optaps_for/fortran/optaps_prg_io_f.htm).
-
-**(Q1)** How do I link Section/Chapter to the normal text?
+We intend to provide an advice to users who use Intel Fortran compiler. Thus, some tips ([Section 3](#sec3) and [Section 4](#sec4)) may not apply to the GNU compiler users. Also, this article covers the general tips for the sequential I/O operation (not MPI-I/O). Finally, we would remark that many of the contents are referenced by an online article [here](http://kiwi.atmos.colostate.edu/rr/tidbits/intel/macintel/doc_files/source/extfile/optaps_for/fortran/optaps_prg_io_f.htm).
 
 ## 1. Use of Unformatted File
 
@@ -78,8 +76,9 @@ The BUFFERED statement contributes to opening a single file with the disk block 
 
 **The use of buffered I/O is generally recommended for improving the writing performance, but be careful not to consume too much RAM**.
 
-
+<a name="sec4">
 ## 4. Reading a single file from multiple MPI ranks (Intel Compiler version 13 and above)
+</a>
 
 From Intel compiler 13 and onward versions, we observe that file reading speed drastically decreases at certain cases. As noted in this [online discussion](https://software.intel.com/en-us/forums/topic/549671), it slows down if **multiple cores access a single file to read the snippet** of it and the code **mixes single and array variables to scan the line of a datafile**. If your read statement is implemented in this manner, you are most likely to encounter the same slowdown we observed:
 
