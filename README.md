@@ -28,7 +28,9 @@ One remark is that the native unformatted data is not portable by 100 percent. I
 
 Access to the peripheral disk for reading/writing operation is much slower than copying the data between separate RAM memory space. At the same time, the disk I/O speed is highly dependent on the number of instructions to access the file. As an example,
 
+<a name="example_1">
 * ~~**Example 1**~~
+</a>
 ``` fortran
 	integer, parameter :: N=10000000 ! sufficiently large number
 	integer :: arr(N), i
@@ -62,9 +64,7 @@ We recommend you to have the habit of **writing the array as a bulk and avoiding
 
 Intel Fortran run-time library is said to provide the disk block I/O buffer, where multiple I/O streams are packed together and transferred to the physical disk I/O for operation. By default, the Fortran run-time system conducts the unbuffered disk writes.
 
-It contributes to improving the writing performance, especially if the size of element at a single instruction is small (the *Case 3* in ~~**Example 1**~~). We also observe that the writing performance is significantly improved if your file is of FORMATTED one. Meanwhile, the disk block I/O buffer consumes local RAM space, which can result in the OOM (Out-Of-Memory) situation depending on your data size.
-
-**(Q3)** How to link to the example (another part within the same document)
+It contributes to improving the writing performance, especially if the size of element at a single instruction is small (the *Case 3* in [Example 1](#example_1)). We also observe that the writing performance is significantly improved if your file is of FORMATTED one. Meanwhile, the disk block I/O buffer consumes local RAM space, which can result in the OOM (Out-Of-Memory) situation depending on your data size.
 
 To enable the buffered write, you can choose one of following ways:
 
