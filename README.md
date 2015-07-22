@@ -82,25 +82,26 @@ The BUFFERED statement contributes to opening a single file with the disk block 
 From Intel compiler 13 and onward versions, we observe that file reading speed drastically decreases at certain cases. As noted in this [online discussion](https://software.intel.com/en-us/forums/topic/549671), it slows down if **multiple cores access a single file to read the snippet** of it and the code **mixes single and array variables to scan the line of a datafile**. If your read statement is implemented in this manner, you are most likely to encounter the same slowdown we observed:
 
 ``` fortran
-	*read(unit) ((tmp,i=1,start-1),(arr(i),i=start,end),(tmp,i=end,max))*
+	read(unit) ((tmp,i=1,start-1),(arr(i),i=start,end),(tmp,i=end,max))
 ```
-**(Q4)** How to change the emphasis within code section
 
 where *tmp* is a dummy variable which dumps away unnecessary data, *arr* is the actual array which stores the valid dataset, and *start*,*end*,*max* refers to the range of a dataset.
 
 The reading performance can be improved by changing a program or by turning on the buffered I/O which is explained above. With regard to the change on program, the performance is much improved if the dummy variable is designed as an array instead of a single variable:
 
 ``` fortran
-	**read(unit) ((tmp1(i),i=1,start-1),(arr(i),i=start,end),(tmp2(i),i=end,max))**
+	read(unit) ((tmp1(i),i=1,start-1),(arr(i),i=start,end),(tmp2(i),i=end,max))
 ```
-**(Q5)** The same: how to change the emphasis within code section
+
+Beware that we now allocate dummy arrays of ***tmp1(:)*** and ***tmp2(:)*** to store unnecessary dataset from the data file, instead of keep overwriting one ***tmp*** variable.
 
 To revisit a way of turning on buffered I/O,
 
-``` fortran
+<p>
 	**OPEN(unit,file=name,BUFFERED='YES')** or **-assume buffered_io** or **export FORT_BUFFERED=true**
-```
-**(Q6)** The same: how to change the emphasis within code section
+</p>
+
+will make use of disk block I/O buffer.
 
 At least we clearly observe the above slowdown when **more than 100 CPU cores access a single datafile of bigger than 100 Megabytes** to read a part of the data file. If your case applies to this range, we highly recommend you to **turn on buffered I/O feature and rerun the same simulation** to see the performance change.
 
