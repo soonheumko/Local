@@ -53,7 +53,7 @@ Access to the peripheral disk for reading/writing operation is much slower than 
 
 the I/O speed in the first case is noticeably faster than the second case. The third case of writing the record one-by-one is horribly slower than others.
 
-To explain in detail, the compiler transfers the block of neighbouring entries from an array (*arr(i)* in Example 1) to the device in Case 1. Therefore, multiple elements in an array are written to the disk at a single instruction. In Case 2, the compiler first stores the value of a single variable (*i* in Example 1) in an internal buffer and passes the buffer array to the device for writing operation. In Case 3, a single variable is passed to the device for performing the writing instruction. Therefore, much more instruction is necessary to complete the writing operation than others, who transfer a pack of dataset at an instruction.
+To explain in detail, the compiler transfers the block of neighbouring entries from an array (*arr(i)* in [Example 1](#example_1)) to the device in *Case 1**. Therefore, multiple elements in an array are written to the disk at a single instruction. In *Case 2*, the compiler first stores the value of a single variable (*i* in [Example 1](#example_1)) in an internal buffer and passes the buffer array to the device for writing operation. In *Case 3*, a single variable is passed to the device for performing the writing instruction. Therefore, much more instruction is necessary to complete the writing operation than others, who transfer a pack of dataset at an instruction.
 
 We recommend you to have the habit of **writing the array as a bulk and avoiding the I/O statement within DO-loop**.
 
@@ -124,7 +124,7 @@ We first compare the performance between FORMATTED and UNFORMATTED file reading/
 
 * Verification of Section 2
 <ul>
-We next compare the performance between completing I/O instruction by a single function call and reading/writing a single entry under the DO-loop (Example 1 in Section 2).
+We next compare the performance between completing I/O instruction by a single function call and reading/writing a single entry under the DO-loop ([Example 1](#example_1) in [Section 2](#sec2)).
 
 -- UNFORMATTED Dataset
 
