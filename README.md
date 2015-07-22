@@ -23,13 +23,14 @@ To save/load your data in unformatted format, add UNFORMATTED *form* specifier i
 
 One remark is that the native unformatted data is not portable by 100 percent. In other words, the format may differ depending on the operating system and the compiler. The common issue of different endianness (big-endian VS little-endian) between compilers can be controlled by the proper compilation option or code change. Instructions for the Intel compiler can be found [here](http://kiwi.atmos.colostate.edu/rr/tidbits/intel/macintel/doc_files/source/extfile/optaps_for/fortran/optaps_cmp_endi_f.htm).
 
-
+<a name="sec2">
 ## 2. Intermediate storage on RAM and Writing the array instead of single element
+</a>
 
 Access to the peripheral disk for reading/writing operation is much slower than copying the data between separate RAM memory space. At the same time, the disk I/O speed is highly dependent on the number of instructions to access the file. As an example,
 
 <a name="example_1">
-* ~~**Example 1**~~
+* Example 1
 </a>
 ``` fortran
 	integer, parameter :: N=10000000 ! sufficiently large number
@@ -49,8 +50,6 @@ Access to the peripheral disk for reading/writing operation is much slower than 
 	! End of cases
 	close(10)
 ```
-
-**(Q2)** Can I change the emphasis within code snippet?
 
 the I/O speed in the first case is noticeably faster than the second case. The third case of writing the record one-by-one is horribly slower than others.
 
@@ -109,9 +108,9 @@ At least we clearly observe the above slowdown when **more than 100 CPU cores ac
 ## 5. Results
 
 * Verification of Section 1
-
 <ul>
-We first compare the performance between FORMATTED and UNFORMATTED file reading/writing performances. We compare the performance of writing and reading a 1-dimensional integer array whose size is 100 million (roughly 380 Megabytes in file size). We write/read the entire variable at a single instruction. It is tested on Intel compiler version 15. We did not apply the buffered I/O option.
+We first compare the performance between FORMATTED and UNFORMATTED file reading/writing performances. We compare the performance of writing and reading a 1-dimensional integer array whose size is 100 million (roughly 380 Megabytes in file size). We write/read the entire variable at a single instruction. It is tested on Intel compiler version 15. We did not apply the buffered I/O option.<br><br>
+
 
 | I/O Instruction | File Format | Time for Operation | 
 |:-----:|:-----:|:-----:|
@@ -120,7 +119,7 @@ We first compare the performance between FORMATTED and UNFORMATTED file reading/
 | WRITE | FORMATTED | 77.7938079833984 |
 |  | UNFORMATTED | 0.879778146743774 |
 
-This result tells you that I/O speed accelerates by roughly 100 times with UNFORMATTED file format. The result can differ by the data size and the overhead in I/O server.
+<br> This result tells you that I/O speed accelerates by roughly 100 times with UNFORMATTED file format. The result can differ by the data size and the overhead in I/O server.
 </ul>
 
 * Verification of Section 2
