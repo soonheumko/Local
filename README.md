@@ -108,8 +108,8 @@ At least we clearly observe the above slowdown when **more than 100 CPU cores ac
 ## 5. Results
 
 * Verification of Section 1
-<ul>
-We first compare the performance between FORMATTED and UNFORMATTED file reading/writing performances. We compare the performance of writing and reading a 1-dimensional integer array whose size is 100 million (roughly 380 Megabytes in file size). We write/read the entire variable at a single instruction. It is tested on Intel compiler version 15. We did not apply the buffered I/O option.<br><br>
+
+<ul><ul>We first compare the performance between FORMATTED and UNFORMATTED file reading/writing performances. We compare the performance of writing and reading a 1-dimensional integer array whose size is 100 million (roughly 380 Megabytes in file size). We write/read the entire variable at a single instruction. It is tested on Intel compiler version 15. We did not apply the buffered I/O option.<br><br></ul>
 
 
 | I/O Instruction | File Format | Time for Operation | 
@@ -123,10 +123,11 @@ We first compare the performance between FORMATTED and UNFORMATTED file reading/
 </ul>
 
 * Verification of Section 2
+
 <ul>
 We next compare the performance between completing I/O instruction by a single function call and reading/writing a single entry under the DO-loop ([Example 1](#example_1) in [Section 2](#sec2)).
 
--- UNFORMATTED Dataset
+* UNFORMATTED Dataset
 
 | I/O Instruction | Function Call | Time for Operation | 
 |:-----:|:-----:|:-----:|
@@ -135,7 +136,7 @@ We next compare the performance between completing I/O instruction by a single f
 | WRITE | Single Call | 0.879778146743774 |
 |  | Call within DO-Loop | 467.021706104279 |
 
--- FORMATTED Dataset
+* FORMATTED Dataset
 
 | I/O Instruction | Function Call | Time for Operation | 
 |:-----:|:-----:|:-----:|
@@ -151,7 +152,7 @@ Worth to note that completing the I/O operation by a single call provides much b
 <ul>
 The effect of buffered I/O is measured by activating and deactivating the FORT_BUFFERED variable. We only demonstrate the writing performance, since we did not see the noticeable change on read performance.
 
--- UNFORMATTED Dataset
+* UNFORMATTED Dataset
 
 | Function Call | Buffered I/O | Time for Operation | 
 |:-----:|:-----:|:-----:|
@@ -160,7 +161,7 @@ The effect of buffered I/O is measured by activating and deactivating the FORT_B
 | Call within DO-Loop | TRUE | 13.4019091129303 |
 |  | FALSE | 467.021706104279 |
 
--- FORMATTED Dataset
+* FORMATTED Dataset
 
 | Function Call | Buffered I/O | Time for Operation | 
 |:-----:|:-----:|:-----:|
@@ -174,7 +175,7 @@ As we expected, turning on buffered I/O affects much if the size of writing data
 
 * Verification of Section 4
 <ul>
-The last experiment measures the read performance when multiple cores access a single data file. The data file consists of 20 million double-precision values. The dataset is equally partitioned to 256 blocks and each core acceses the same data file to read its own partition. We compare performances between setting the dummy variable (which reads the data in other partition) as a single variable and the array of actual size. The data format is an UNFORMATTED one.
+The last experiment measures the read performance when multiple cores access a single data file. The data file consists of 20 million double-precision values. The dataset is equally partitioned to 256 blocks and each core acceses the same data file to read its own partition. We compare performances between setting the dummy variable (which reads the data in other partition) as a single variable and the array of actual size. The data format is an UNFORMATTED one.<br><br>
 
 | Dummy Variable | Buffered I/O | Time for Operation | 
 |:-----:|:-----:|:-----:|
