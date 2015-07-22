@@ -181,8 +181,7 @@ We recognize that the performance is highly improved by the buffered I/O if the 
 
 As the short summary,
 
-<strong><ul>
 - If you do not migrate among different sites frequently, use of UNFORMATTION file formulation can contribute much on improving I/O performance.
 - Try to call least number of I/O functions within your code. That is, try to pack multiple data in a contiguous memory space and read/write multiple data at once.
 - For the Intel compiler user, turning on buffered I/O option will give you the improved writing performance in general. This also can be a solution to the ones who experience the sudden slowdown of file read performance after the migration to higher Intel compiler version.
-</ul></strong>
+
